@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#100d18">
+<title>VICE CITY CLIPS — GTA VI Creator Hub</title>
+<style>
+:root{
+  --bg:#100d18;--panel:#191525;--panel2:#211b30;--line:#39304a;
+  --text:#f8f2ff;--muted:#b7a9c7;--pink:#ff4fa3;--cyan:#52e6ed;
+  --gold:#ffd36a;--purple:#9a70ff;--radius:20px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:
+ radial-gradient(ellipse at 80% -10%,rgba(255,79,163,.20),transparent 38%),
+ radial-gradient(ellipse at 0% 25%,rgba(82,230,237,.11),transparent 35%),var(--bg);
+ color:var(--text);font:15px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+a{color:inherit;text-decoration:none}
+.wrap{width:min(1180px,calc(100% - 36px));margin:auto}
+.topbar{position:sticky;top:0;z-index:20;background:rgba(16,13,24,.86);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.08)}
+.nav{height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;align-items:center;gap:11px;font-weight:950;letter-spacing:.08em}
+.brandmark{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,var(--pink),var(--purple));color:white;font-weight:1000;box-shadow:0 0 24px #ff4fa344}
+.brand small{display:block;color:var(--cyan);font-size:9px;letter-spacing:.22em;margin-top:-4px}
+.navlinks{display:flex;gap:24px;color:var(--muted);font-size:13px;font-weight:700}
+.navlinks a:hover{color:white}
+.actions{display:flex;align-items:center;gap:10px}
+.btn{border:1px solid var(--line);border-radius:999px;padding:10px 16px;color:var(--text);background:var(--panel2);font-weight:800;transition:.2s}
+.btn:hover{transform:translateY(-2px);border-color:var(--cyan)}
+.btn.primary{border:0;color:#170f20;background:linear-gradient(100deg,var(--pink),#ff8b88 55%,var(--gold));box-shadow:0 7px 25px #ff4fa333}
+.btn.ghost{background:transparent}
+.menu{display:none}
+.hero{padding:72px 0 44px;display:grid;grid-template-columns:1.1fr .9fr;gap:38px;align-items:center}
+.eyebrow{color:var(--cyan);font-size:11px;font-weight:900;letter-spacing:.24em;text-transform:uppercase}
+h1{font-size:clamp(48px,7vw,86px);line-height:.91;letter-spacing:-.065em;margin:17px 0 20px;font-weight:1000}
+h1 span{display:block;background:linear-gradient(95deg,#fff 5%,#ff75b5 48%,#75f5f1 95%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{max-width:570px;color:var(--muted);font-size:17px}
+.hero-buttons{display:flex;gap:12px;flex-wrap:wrap;margin:26px 0}
+.stats{display:flex;gap:28px;margin-top:32px}
+.stat strong{display:block;font-size:22px}.stat span{font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+.hero-art{min-height:390px;position:relative;display:grid;place-items:center;isolation:isolate}
+.sun{position:absolute;width:290px;height:290px;border-radius:50%;background:linear-gradient(145deg,#ffb36b,#ff4fa3 50%,#8b5cff);filter:blur(.2px);opacity:.95;box-shadow:0 0 100px #ff4fa355;z-index:-2}
+.sun:after{content:"";position:absolute;inset:50% -20px -15px;background:repeating-linear-gradient(to bottom,transparent 0 10px,var(--bg) 11px 18px);opacity:.6}
+.palm{position:absolute;font-size:110px;filter:drop-shadow(0 8px 18px #090610);z-index:1}
+.palm.left{left:0;bottom:30px;transform:rotate(-14deg)}.palm.right{right:0;top:10px;transform:scaleX(-1) rotate(-10deg)}
+.hero-card{position:relative;z-index:2;width:min(360px,90%);padding:12px;border:1px solid #ffffff33;border-radius:24px;background:#171222bb;backdrop-filter:blur(10px);transform:rotate(3deg);box-shadow:0 30px 90px #05030b99}
+.art-thumb{height:220px;border-radius:16px;display:grid;place-items:center;text-align:center;background:linear-gradient(145deg,#f6a16c,#ec579e 48%,#5246a9);overflow:hidden;position:relative}
+.art-thumb:before{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#160e2acc,transparent 70%),repeating-linear-gradient(90deg,transparent 0 42px,#ffffff12 43px 45px)}
+.art-thumb b{font-size:38px;line-height:.9;letter-spacing:-.06em;text-shadow:0 4px 20px #4b164c;z-index:1}
+.art-thumb small{display:block;font-size:10px;letter-spacing:.3em;margin-top:10px}
+.card-meta{display:flex;justify-content:space-between;align-items:center;padding:12px 4px 2px;font-size:12px;color:var(--muted)}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border:1px solid #ffffff20;border-radius:99px;color:var(--cyan);font-size:10px;font-weight:900;letter-spacing:.08em}
+.section{padding:42px 0}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:22px}
+h2{font-size:clamp(27px,4vw,38px);letter-spacing:-.04em;margin:6px 0 0}
+.sub{color:var(--muted);margin:6px 0 0}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}
+.search{flex:1;min-width:210px}
+input,select,textarea{background:#171321;border:1px solid var(--line);color:var(--text);border-radius:12px;padding:12px 14px;outline:none;width:100%}
+input:focus,select:focus,textarea:focus{border-color:var(--cyan);box-shadow:0 0 0 3px #52e6ed18}
+.filters{display:flex;gap:8px;flex-wrap:wrap}
+.filter{border:1px solid var(--line);background:transparent;color:var(--muted);padding:10px 14px;border-radius:99px;font-weight:800;font-size:12px}
+.filter.active,.filter:hover{background:#ff4fa31a;border-color:var(--pink);color:#fff}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.clip{border:1px solid var(--line);background:linear-gradient(160deg,#211a30,#171321);border-radius:18px;overflow:hidden;transition:.22s}
+.clip:hover{transform:translateY(-4px);border-color:#a36fff88;box-shadow:0 18px 50px #0005}
+.thumb{height:190px;position:relative;display:grid;place-items:center;overflow:hidden;background:linear-gradient(135deg,#f39a79,#e84e9c 55%,#5143a3)}
+.thumb:before{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#0b0816a8,transparent 75%),repeating-linear-gradient(110deg,transparent 0 45px,#fff1 46px 48px)}
+.thumb .scene{font-size:52px;z-index:1;filter:drop-shadow(0 6px 12px #2b123e)}
+.duration{position:absolute;right:11px;bottom:10px;background:#0b081dcc;padding:4px 8px;border-radius:6px;font-size:11px;font-weight:900}
+.tag{position:absolute;top:11px;left:11px;background:#130f20c9;border:1px solid #ffffff33;border-radius:99px;padding:5px 9px;font-size:9px;font-weight:900;letter-spacing:.1em}
+.clipbody{padding:15px}
+.clip h3{margin:0 0 5px;font-size:16px}
+.creator{color:var(--muted);font-size:12px}
+.clipfoot{display:flex;justify-content:space-between;align-items:center;margin-top:16px;padding-top:12px;border-top:1px solid #ffffff12}
+.metrics{display:flex;gap:13px;color:var(--muted);font-size:12px}
+.iconbtn{border:0;background:transparent;color:var(--muted);padding:5px 7px;border-radius:8px}
+.iconbtn:hover,.iconbtn.liked{color:var(--pink);background:#ff4fa318}
+.creators{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.creator-card{display:flex;align-items:center;gap:13px;background:var(--panel);border:1px solid var(--line);padding:16px;border-radius:16px}
+.avatar{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,var(--cyan),var(--purple));font-weight:1000;color:#100d18}
+.creator-card strong{display:block}.creator-card small{color:var(--muted)}
+.rank{margin-left:auto;color:var(--gold);font-weight:950}
+.cta{padding:30px;border-radius:24px;background:linear-gradient(110deg,#4e2461,#a53c80 55%,#265b75);border:1px solid #ffffff2a;display:flex;align-items:center;justify-content:space-between;gap:22px}
+.cta h2{margin:0}.cta p{color:#f4dff0;margin:8px 0 0}
+footer{border-top:1px solid #ffffff14;padding:28px 0 42px;color:var(--muted);font-size:12px}
+.footerrow{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.modal{position:fixed;inset:0;z-index:50;background:#05030bd9;display:none;place-items:center;padding:18px}
+.modal.open{display:grid}
+.dialog{width:min(560px,100%);max-height:90vh;overflow:auto;background:#191525;border:1px solid #6d527e;border-radius:22px;padding:22px;box-shadow:0 30px 100px #000b}
+.dialoghead{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}
+.dialog h2{font-size:26px}
+.formgrid{display:grid;gap:12px}
+.formgrid label{display:grid;gap:6px;font-size:12px;font-weight:800;color:var(--muted)}
+.close{border:1px solid var(--line);background:transparent;color:white;border-radius:10px;padding:7px 11px}
+.hint{font-size:11px;color:var(--muted)}
+.toast{position:fixed;bottom:22px;left:50%;transform:translate(-50%,20px);opacity:0;pointer-events:none;z-index:80;background:#f7efff;color:#170f20;border-radius:99px;padding:11px 17px;font-weight:900;box-shadow:0 8px 35px #0008;transition:.25s}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.empty{grid-column:1/-1;border:1px dashed var(--line);padding:35px;text-align:center;border-radius:16px;color:var(--muted)}
+@media(max-width:850px){.hero{grid-template-columns:1fr;padding-top:52px}.hero-art{min-height:330px}.grid{grid-template-columns:repeat(2,1fr)}.creators{grid-template-columns:1fr 1fr}.navlinks{display:none}.menu{display:inline-flex}}
+@media(max-width:560px){.wrap{width:min(100% - 26px,1180px)}.nav{height:64px}.brand{font-size:13px}.actions .ghost{display:none}.hero{padding-top:40px;gap:10px}.hero-art{min-height:285px}.sun{width:220px;height:220px}.palm{font-size:75px}.stats{gap:18px}.stat strong{font-size:19px}.grid{grid-template-columns:1fr}.thumb{height:205px}.creators{grid-template-columns:1fr}.section-head{align-items:start;flex-direction:column}.cta{align-items:start;flex-direction:column;padding:23px}.hero-buttons .btn{flex:1}.hero-buttons{width:100%}}
+</style>
+</head>
+<body>
+<header class="topbar">
+ <div class="wrap nav">
+  <a class="brand" href="#home"><span class="brandmark">VC</span><span>VICE CITY CLIPS<small>THE CREATOR DISTRICT</small></span></a>
+  <nav class="navlinks"><a href="#clips">Discover</a><a href="#creators">Creators</a><a href="#how">How it works</a></nav>
+  <div class="actions"><button class="btn ghost" id="browseBtn">Explore clips</button><button class="btn primary" id="openSubmit">＋ Submit a clip</button><button class="btn menu" id="mobileMenu" aria-label="Open menu">☰</button></div>
+ </div>
+</header>
+<main>
+<section class="wrap hero" id="home">
+ <div>
+  <div class="eyebrow">A fan-made GTA VI creator community</div>
+  <h1>YOUR CLIP.<span>YOUR CITY.</span></h1>
+  <p class="lead">The place to discover wild moments, clean edits, close calls and unforgettable stories from the streets of Vice City. Post your best moment and get seen.</p>
+  <div class="hero-buttons"><button class="btn primary" id="heroSubmit">Submit your clip ↗</button><a class="btn" href="#clips">Watch the feed ↓</a></div>
+  <div class="stats"><div class="stat"><strong id="clipCount">1,284</strong><span>Community clips</span></div><div class="stat"><strong>8.6K</strong><span>Creators</span></div><div class="stat"><strong>24/7</strong><span>Vice City energy</span></div></div>
+ </div>
+ <div class="hero-art" aria-label="Original neon sunset artwork">
+  <div class="sun"></div><div class="palm left">🌴</div><div class="palm right">🌴</div>
+  <div class="hero-card"><div class="art-thumb"><b>VICE CITY<small>CLIPS • COMMUNITY • CULTURE</small></b></div><div class="card-meta"><span>✦ THE CITY IS WATCHING</span><span class="pill">CREATOR HUB</span></div></div>
+ </div>
+</section>
+<section class="section wrap" id="clips">
+ <div class="section-head"><div><div class="eyebrow">Fresh from the streets</div><h2>Trending clips</h2><p class="sub">Find your next favorite moment.</p></div><span class="pill">● LIVE COMMUNITY FEED</span></div>
+ <div class="toolbar"><input class="search" id="search" placeholder="Search clips, creators or tags…" aria-label="Search clips"><div class="filters" id="filters"><button class="filter active" data-filter="All">All</button><button class="filter" data-filter="Action">Action</button><button class="filter" data-filter="Funny">Funny</button><button class="filter" data-filter="Driving">Driving</button><button class="filter" data-filter="Cinematic">Cinematic</button></div></div>
+ <div class="grid" id="clipGrid"></div>
+</section>
+<section class="section wrap" id="creators">
+ <div class="section-head"><div><div class="eyebrow">The people behind the pixels</div><h2>Creator spotlight</h2><p class="sub">Community names making noise this week.</p></div><span class="pill">✦ TOP CREATORS</span></div>
+ <div class="creators">
+  <div class="creator-card"><div class="avatar">LX</div><div><strong>@LuciaX</strong><small>Vice City storyteller</small></div><span class="rank">#01</span></div>
+  <div class="creator-card"><div class="avatar" style="background:linear-gradient(135deg,#ff9d70,#ff4fa3)">RJ</div><div><strong>@RoadJax</strong><small>Driving & stunts</small></div><span class="rank">#02</span></div>
+  <div class="creator-card"><div class="avatar" style="background:linear-gradient(135deg,#ffd36a,#ff8d68)">NM</div><div><strong>@NeonMami</strong><small>Funny moments</small></div><span class="rank">#03</span></div>
+ </div>
+</section>
+<section class="section wrap" id="how">
+ <div class="cta"><div><div class="eyebrow">Your moment deserves the spotlight</div><h2>Drop your clip into the city.</h2><p>Submit a link or choose a video file to preview locally.</p></div><button class="btn primary" id="ctaSubmit">Start submitting ↗</button></div>
+</section>
+</main>
+<footer><div class="wrap footerrow"><div><strong style="color:white;letter-spacing:.1em">VICE CITY CLIPS</strong><br>Built for the community. Powered by creators.</div><div>Fan-made, unofficial community concept. Not affiliated with or endorsed by Rockstar Games or Take-Two Interactive. Grand Theft Auto and GTA VI are trademarks of their respective owners.</div><div>© <span id="year"></span> VICE CITY CLIPS</div></div></footer>
+
+<div class="modal" id="submitModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+ <div class="dialog">
+  <div class="dialoghead"><div><div class="eyebrow">Creator upload desk</div><h2 id="modalTitle">Submit a clip</h2></div><button class="close" id="closeModal" aria-label="Close">✕</button></div>
+  <form class="formgrid" id="clipForm">
+   <label>Clip title<input id="title" maxlength="70" placeholder="e.g. Wildest getaway in Vice City" required></label>
+   <label>Creator name<input id="creator" maxlength="30" placeholder="@YourCreatorName" required></label>
+   <label>Category<select id="category"><option>Action</option><option>Funny</option><option>Driving</option><option>Cinematic</option></select></label>
+   <label>Video link (YouTube, TikTok, or stream URL)<input id="videoUrl" type="url" placeholder="https://…"></label>
+   <label>Or choose a video file<input id="videoFile" type="file" accept="video/*"></label>
+   <div class="hint" id="fileHint">Local preview only: this demo does not upload files to a server.</div>
+   <label class="hint" style="display:flex;grid-template-columns:18px 1fr;align-items:start"><input id="rights" type="checkbox" required style="width:16px;margin:2px 0"> I have the rights or permission to share this clip and agree to the community rules.</label>
+   <button class="btn primary" type="submit">Add to demo feed ↗</button>
+   <p class="hint">Submissions are stored in this browser only. Connect a backend and moderation workflow before accepting public uploads.</p>
+  </form>
+ </div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+<script>
+const starterClips=[
+ {id:1,title:"That getaway was TOO clean",creator:"@RoadJax",category:"Driving",views:24800,likes:1830,duration:"0:24",emoji:"🏎️",color:"sunset"},
+ {id:2,title:"NPC had the worst timing",creator:"@NeonMami",category:"Funny",views:19200,likes:1420,duration:"0:18",emoji:"😂",color:"pink"},
+ {id:3,title:"Vice City after dark",creator:"@LuciaX",category:"Cinematic",views:31600,likes:2640,duration:"0:42",emoji:"🌆",color:"night"},
+ {id:4,title:"One star to five stars in seconds",creator:"@SouthBeach",category:"Action",views:14700,likes:980,duration:"0:31",emoji:"🚨",color:"blue"},
+ {id:5,title:"Beachfront drift attempt",creator:"@TropicTorque",category:"Driving",views:22100,likes:1710,duration:"0:27",emoji:"🌴",color:"pink"},
+ {id:6,title:"The smoothest entrance",creator:"@ViceVibes",category:"Cinematic",views:12800,likes:890,duration:"0:36",emoji:"✨",color:"sunset"}
+];
+const palettes={sunset:"linear-gradient(135deg,#f4ad75,#e65c9b 55%,#6550b7)",pink:"linear-gradient(135deg,#ff9a88,#f052a4 55%,#563d9a)",night:"linear-gradient(135deg,#24365f,#a34b91 55%,#f4a16d)",blue:"linear-gradient(135deg,#4d9ab1,#6b62b5 55%,#ef7e9b)"};
+let clips=JSON.parse(localStorage.getItem("vcc_clips")||"null")||starterClips;
+let liked=new Set(JSON.parse(localStorage.getItem("vcc_liked")||"[]"));
+let currentFilter="All";
+const grid=document.getElementById("clipGrid");
+const fmt=n=>n>=1000000?(n/1000000).toFixed(1)+"M":n>=1000?(n/1000).toFixed(1)+"K":String(n);
+function save(){localStorage.setItem("vcc_clips",JSON.stringify(clips));localStorage.setItem("vcc_liked",JSON.stringify([...liked]));}
+function render(){
+ const q=document.getElementById("search").value.toLowerCase().trim();
+ const filtered=clips.filter(c=>(currentFilter==="All"||c.category===currentFilter)&&[c.title,c.creator,c.category].join(" ").toLowerCase().includes(q));
+ grid.innerHTML="";
+ if(!filtered.length){grid.innerHTML='<div class="empty">No clips match that search. Try another term or category.</div>';}
+ filtered.forEach(c=>{
+  const card=document.createElement("article");card.className="clip";
+  const thumb=document.createElement("div");thumb.className="thumb";thumb.style.background=palettes[c.color]||palettes.sunset;
+  thumb.innerHTML=`<span class="tag">${escapeHTML(c.category.toUpperCase())}</span><span class="scene">${escapeHTML(c.emoji||"🎬")}</span><span class="duration">${escapeHTML(c.duration||"NEW")}</span>`;
+  const body=document.createElement("div");body.className="clipbody";
+  body.innerHTML=`<h3>${escapeHTML(c.title)}</h3><div class="creator">by ${escapeHTML(c.creator)}</div><div class="clipfoot"><div class="metrics"><span>▶ ${fmt(c.views)} views</span><span>♡ ${fmt(c.likes)} likes</span></div><div><button class="iconbtn ${liked.has(c.id)?"liked":""}" data-like="${c.id}" aria-label="Like clip">♥</button><button class="iconbtn" data-share="${c.id}" aria-label="Share clip">↗</button></div></div>`;
+  card.append(thumb,body);grid.append(card);
+ });
+ document.getElementById("clipCount").textContent=(1284+clips.length-starterClips.length).toLocaleString();
+}
+function escapeHTML(s){return String(s).replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));}
+function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2400);}
+function openModal(){document.getElementById("submitModal").classList.add("open");document.body.style.overflow="hidden";setTimeout(()=>document.getElementById("title").focus(),50)}
+function closeModal(){document.getElementById("submitModal").classList.remove("open");document.body.style.overflow="";}
+["openSubmit","heroSubmit","ctaSubmit"].forEach(id=>document.getElementById(id).addEventListener("click",openModal));
+document.getElementById("closeModal").addEventListener("click",closeModal);
+document.getElementById("submitModal").addEventListener("click",e=>{if(e.target.id==="submitModal")closeModal()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal()});
+document.getElementById("browseBtn").addEventListener("click",()=>document.getElementById("clips").scrollIntoView());
+document.getElementById("mobileMenu").addEventListener("click",()=>document.getElementById("clips").scrollIntoView());
+document.getElementById("search").addEventListener("input",render);
+document.getElementById("filters").addEventListener("click",e=>{const b=e.target.closest("[data-filter]");if(!b)return;currentFilter=b.dataset.filter;document.querySelectorAll(".filter").forEach(x=>x.classList.toggle("active",x===b));render()});
+grid.addEventListener("click",e=>{
+ const like=e.target.closest("[data-like]");const share=e.target.closest("[data-share]");
+ if(like){const id=Number(like.dataset.like),c=clips.find(x=>x.id===id);if(liked.has(id)){liked.delete(id);c.likes=Math.max(0,c.likes-1)}else{liked.add(id);c.likes++}save();render();}
+ if(share){const c=clips.find(x=>x.id===Number(share.dataset.share));const text=`Check out "${c.title}" by ${c.creator} on VICE CITY CLIPS`;if(navigator.share)navigator.share({title:"VICE CITY CLIPS",text}).catch(()=>{});else if(navigator.clipboard){navigator.clipboard.writeText(text).then(()=>toast("Clip details copied to clipboard"))}else toast(text);}
+});
+const fileInput=document.getElementById("videoFile");
+fileInput.addEventListener("change",()=>{document.getElementById("fileHint").textContent=fileInput.files[0]?`Selected: ${fileInput.files[0].name} — preview only, not uploaded.`:"Local preview only: this demo does not upload files to a server."});
+document.getElementById("clipForm").addEventListener("submit",e=>{
+ e.preventDefault();
+ const file=fileInput.files[0],url=document.getElementById("videoUrl").value.trim();
+ if(!file&&!url){toast("Add a video link or choose a video file.");return}
+ if(file&&file.size>250*1024*1024){toast("File is over the 250 MB demo limit.");return}
+ const c={id:Date.now(),title:document.getElementById("title").value.trim(),creator:document.getElementById("creator").value.trim().startsWith("@")?document.getElementById("creator").value.trim():"@"+document.getElementById("creator").value.trim(),category:document.getElementById("category").value,views:0,likes:0,duration:"NEW",emoji:"🎬",color:"night",url};
+ clips.unshift(c);save();render();e.target.reset();closeModal();document.getElementById("clips").scrollIntoView();toast("Your clip was added to this browser's demo feed!");
+});
+document.getElementById("year").textContent=new Date().getFullYear();
+render();
+</script>
+</body>
+</html>
